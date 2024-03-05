@@ -1,31 +1,24 @@
 import { useForm } from "react-hook-form"
 import Swal from "sweetalert2";
+import axios from "axios";
 
 export default function Register() {
 
     const { register, handleSubmit, formState: { errors } } = useForm()
 
     const submit = (student) => {
-       
-        fetch("http://localhost:8080/student", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(student),
-        })
-            .then(responce => responce.json())
-            .then(data => {
-               
-                Swal.fire({
-                    title: "Register Sucess!",
-                    text: `${student.id} Register Succesful!`,
-                    icon: "success"
-                });
-            })
+        axios.post("http://localhost:8080/student",student)
+        .then((res=>{
+            console.log(res);
+            Swal.fire({
+                title: "Register Sucess!",
+                text: `Student Register succesfull`,
+                icon: "success"
+              });
+        }));
 
     }
-
+   
 
 
 
