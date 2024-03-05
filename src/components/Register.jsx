@@ -7,6 +7,7 @@ export default function Register() {
     const { register, handleSubmit, formState: { errors } } = useForm()
 
     const submit = (student) => {
+        
         axios.post("http://localhost:8080/student",student)
         .then((res=>{
             console.log(res);

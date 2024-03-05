@@ -1,9 +1,23 @@
+import axios from "axios"
+import { useEffect, useState } from "react";
+
 export default function ViewAll() {
+
+    const [student, setStudent] = useState([]);
+
+    useEffect(() => {
+        axios.get("http://localhost:8080/student")
+            .then((res) => {
+                console.log(res.data);
+                setStudent(res.data)
+            })
+    }, [])
 
 
     return (
         <div>
-            <table class="table">
+            <h4>{student.firstName}</h4>
+            <table className="table">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
@@ -13,14 +27,14 @@ export default function ViewAll() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                  
-                   
+                    {student.map(student =>
+                        <tr>
+                            <td>#ST{student.id}</td>
+                            <td>{student.firstName}</td>
+                            <td>{student.lastName}</td>
+                            <td>{student.contactNumber}</td>
+                        </tr>
+                    )}
                 </tbody>
             </table>
         </div>
